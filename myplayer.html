@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style src=></style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="mystyile.css">
+</head>
+<body>
+    <div class="main-div">
+        <div class="music-container">
+            <h2 id="title">my world</h2>
+            <h3 id="artist">justin beber</h3>
+            <div class="img-container">
+                <img src="ap1.jpg" >
+            </div>
+            <audio class="aud"  src="ap1.mp3"></audio>
+
+            <!-- cotrols -->
+            <div class="music-controles">
+                <i class="fas fa-backward" id="prev" title="previous"></i>
+                <i class="fas fa-play main-button"  id="play" title="play/pause"></i>
+                <i class="fas fa-forward" id="next" title="next"></i>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        let play= document.getElementById('play')
+        let audio=document.querySelector('audio')
+        let img=document.querySelector("img")
+        let title=document.getElementById("title")
+        let artist=document.getElementById("artist")
+        let previous=document.getElementById("prev")
+        let next=document.getElementById("next")
+        let  playing_song=false
+    
+    
+        
+        
+        
+        
+        //   play .............
+        
+        const playMusic=()=>{
+         audio.play();
+         playing_song=true
+         play.classList.replace("fa-play","fa-pause");
+         img.classList.add("anime")
+        }
+        
+        //    pause.............
+        
+        const pauseMusic=()=>{
+            audio.pause();
+            playing_song=false;
+            play.classList.replace("fa-pause","fa-play");
+            img.classList.remove("anime")
+        }
+        
+        //  main button condition 
+        play.addEventListener('click',()=>{
+            if ( playing_song==true) {
+                pauseMusic()
+            } else {
+                
+                playMusic()
+            }
+            
+        })
+
+
+        
+        //........songs array..........
+        const songs=[
+            
+            {
+     name: "ap1",
+     title:" my world  ",
+     artist:" justin beber  ",
+     img:"ap1"
+     },
+     {
+     name: "ap2",
+     title:" Titanic                                       ",
+     artist:" Celine Dion  ",
+     img:"ap2"
+     },
+     
+     {
+     name: "ap3",
+     title:"Tempreature ",
+     artist:" Sean Paul  ",
+     img:"ap3"
+    },
+    {
+     name: "ap4",
+     title:" zubidubi ",
+     artist:" 3 idots  ",
+     img:"ap4"
+     },
+     {
+     name: "ap5",
+     title:" Daru desi                                     ",
+     artist:" cocktail  ",
+     img:"ap5"
+     },
+]
+
+
+
+    //load song with title an artist
+    const loadSong =(song)=>{
+        console.log(song);
+    title.textContent=song.title;
+    artist.textContent=song.artist;
+    audio.src =`${song.name}.mp3`;
+    img.src =`${song.img}.jpg`; }
+
+
+ 
+     // ................next and previous song ...............
+        //  loadSong(songs[1]);
+        
+        songIndex=0;
+        const nextSong =()=>{
+            songIndex=(songIndex+1)%songs.length;
+            loadSong(songs[songIndex]);
+            playMusic()
+        }
+        const prevSong =()=>{
+            songIndex=(songIndex-1+songs.length)%songs.length;
+            loadSong(songs[songIndex]);
+            playMusic()
+        }
+    
+    
+        
+        next.addEventListener("click",nextSong);
+        
+        previous.addEventListener('click',prevSong);
+        
+        
+        </script>
+</body>
+</html>
